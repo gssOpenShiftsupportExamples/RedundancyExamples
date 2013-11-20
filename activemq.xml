@@ -29,12 +29,11 @@
     </bean>
 
     <!--
-        The <broker> element is used to configure the ActiveMQ broker.
-  
-        CHANGEME
-        'brokerName' here refers the the fqdn of the activemq broker, not the openshift broker
-    -->
-    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="services2.voyager.com" useJmx="true" dataDirectory="${activemq.data}">
+         The <broker> element is used to configure the ActiveMQ broker.
+          CHANGEME
+          'brokerName' here refers the the fqdn of the activemq broker, not the openshift broker
+-->
+    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="services1.voyager.com" useJmx="true" dataDirectory="${activemq.data}">
 
         <!--
             For better performances use VM cursor and small memory limit.
@@ -96,69 +95,36 @@
      Below is the network adapters that are used for redundancy
 -->
 
-<!--networkConnectors>
-  <networkConnector name="broker2-broker1" duplex="true" uri="static:(tcp://services1.voyager.com:61616)" userName="admin" password="admin">
-    <staticallyIncludedDestinations>
-      <topic physicalName="mcollective.openshift.reply"/>
-      <topic physicalName="mcollective.discovery.reply"/>
-    </staticallyIncludedDestinations>
-  </networkConnector>
- 
-  <networkConnector name="broker2-broker3" duplex="true" uri="static:(tcp://services3.voyager.com:61616)" userName="admin" password="admin">
-    <staticallyIncludedDestinations>
-      <topic physicalName="mcollective.openshift.reply"/>
-      <topic physicalName="mcollective.discovery.reply"/>
-    </staticallyIncludedDestinations>
-  </networkConnector>
-</networkConnectors-->
-
-<!-- 
-      CHANGEME
+<!--
+     CHANGEME
       - A <networkConnector> will have to be made for each activemq host in the network
       - duplex should be set to try for each of these.
       - Note that the connector is specified by uri, not url. Simply change the hostnames below.
       - The connectors should correspond with the connector name, but it does not make a differnce.
 -->
 
-      <networkConnectors>
-        <networkConnector name="broker1-broker2-topic" duplex="true"
-              uri="static:(tcp://services2.voyager.com:61616)"
-              userName="admin" password="admin">
-          <excludedDestinations>
-            <queue physicalName=">" />
-          </excludedDestinations>
-        </networkConnector>
-        <networkConnector name="broker1-broker2-queue" duplex="true"
-              uri="static:(tcp://services2.voyager.com:61616)"
-              userName="admin" password="admin"
-              conduitSubscriptions="false">
-          <excludedDestinations>
-            <topic physicalName=">" />
-          </excludedDestinations>
-        </networkConnector>
-        <networkConnector name="broker1-broker3-topic" duplex="true"
-              uri="static:(tcp://services3.voyager.com:61616)"
-              userName="admin" password="admin">
-          <excludedDestinations>
-            <queue physicalName=">" />
-          </excludedDestinations>
-        </networkConnector>
-        <networkConnector name="broker1-broker3-queue" duplex="true"
-              uri="static:(tcp://services3.voyager.com:61616)"
-              userName="admin" password="admin"
-              conduitSubscriptions="false">
-          <excludedDestinations>
-            <topic physicalName=">" />
-          </excludedDestinations>
-        </networkConnector>
-      </networkConnectors>
+<networkConnectors>
+  <networkConnector name="broker1-broker2" duplex="true" uri="static:(tcp://services2.voyager.com:61616)" userName="admin" password="admin">
+    <staticallyIncludedDestinations>
+      <topic physicalName="mcollective.openshift.reply"/>
+      <topic physicalName="mcollective.discovery.reply"/>
+    </staticallyIncludedDestinations>
+  </networkConnector>
+ 
+  <networkConnector name="broker1-broker3" duplex="true" uri="static:(tcp://services3.voyager.com:61616)" userName="admin" password="admin">
+    <staticallyIncludedDestinations>
+      <topic physicalName="mcollective.openshift.reply"/>
+      <topic physicalName="mcollective.discovery.reply"/>
+    </staticallyIncludedDestinations>
+  </networkConnector>
+</networkConnectors>
 
-        <!-- add users for mcollective 
+        <!--
 
-              CHANGEME
-              - Set the mcollective username and password here          
+            CHANGEME 
+              add users for mcollective 
 
-        -->
+          -->
 
         <plugins>
           <statisticsBrokerPlugin/>
