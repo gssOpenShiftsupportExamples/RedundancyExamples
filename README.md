@@ -3,7 +3,7 @@ RedundancyExamples
 
 - Example configuration files for a redundant 1.2 installation
 
-*Topology*
+**Topology**
 
 - 1 broker
   - broker.voyager.com
@@ -18,7 +18,8 @@ RedundancyExamples
   - node4.voyager.com
 
 =======================
-*Files*
+
+**Files**
 
 - activemq.xml 
   - This is an example activemq configuration for redundancy. The amount of changes from the default to configure this file is quite large. 
@@ -39,6 +40,8 @@ RedundancyExamples
 - broker.conf
   - This is an example Openshift broker configuration file with redundancy  
   - This file location on a system will be `/etc/openshift/broker.conf`
+
+=======================
 
 **NOTE**
 - These are configured for Openshift Enterprise 1.2 and may not work directly with 2.0. Refer to the deployment documenation for more information.
